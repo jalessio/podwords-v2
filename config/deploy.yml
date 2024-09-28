@@ -46,7 +46,7 @@ servers:
 # Enable SSL auto certification via Let's Encrypt (and allow for multiple apps on one server).
 # Set ssl: false if using something like Cloudflare to terminate SSL (but keep host!).
 proxy:
-  ssl: false
+  ssl: true
   # host: podwords.ai
 
 # Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
