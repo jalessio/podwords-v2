@@ -35,7 +35,7 @@ fr:
   are_you_sure: "Êtes vous certain ?"
   back: "Retour"
   cancel: "Annuler"
-  create_an_account_first: "Merci de créer un compte d’abord."
+  create_an_account_first: "Merci de créer un compte d'abord."
   delete: "Supprimer"
   edit: "Éditer"
   view: "Consulter"
@@ -50,15 +50,15 @@ fr:
       header_html: "%{inviter} vous a invité à collaborer sur <strong>%{account}</strong>"
       description_html: "Vous pouvez %{link} cette invitation."
       accept_or_decline: "accepter ou refuser"
-      view_invitation: "Voir l’invitation"
+      view_invitation: "Voir l'invitation"
 
   account_invitations:
-    invite_user: "Inviter l’utilisateur"
+    invite_user: "Inviter l'utilisateur"
     authenticate: "Merci de vous connecter ou de créer un compte pour accepter cette invitation"
-    not_found: "Oups, nous n’avons pas pu trouver cette invitation. Demandez à l’administrateur du compte une nouvelle invitation."
+    not_found: "Oups, nous n'avons pas pu trouver cette invitation. Demandez à l'administrateur du compte une nouvelle invitation."
     show:
       invited_you_to_join_html: "<strong>%{inviter}</strong> vous a invité à rejoindre <strong>%{account}</strong>"
-      accept: "Accepter l’invitation"
+      accept: "Accepter l'invitation"
       decline: "Décliner"
 
   account_users:
@@ -75,7 +75,7 @@ fr:
       current: "Compte actuel"
     show:
       invite: "Inviter un utilisateur"
-      resend_invite: "Renvoyer l’invitation"
+      resend_invite: "Renvoyer l'invitation"
       edit: "Modifier"
       edit_account: "Modifier le compte"
       copy_link: "Copier le lien"
@@ -96,20 +96,20 @@ fr:
     users: "Utilisateurs"
     roles: "Rôles"
     account_invitations:
-      sent: "L’invitation a été envoyée à %{email}."
+      sent: "L'invitation a été envoyée à %{email}."
       updated: "L'invitation a bien été mise à jour."
       destroyed: "L'invitation a bien été supprimée."
       new:
         title: "Inviter un utilisateur"
         description: "Inviter un utilisateur à rejoindre ce compte."
-        send: "Envoyer l’invitation"
+        send: "Envoyer l'invitation"
         cancel: "Annuler"
       edit:
         title: "Modifier l'innvitation"
-        description: "Modifier ou annuler l’invitation."
+        description: "Modifier ou annuler l'invitation."
         back: "Retour"
-        update: "Mettre à jour l’invitation"
-        destroy: "Annuler l’invitation"
+        update: "Mettre à jour l'invitation"
+        destroy: "Annuler l'invitation"
     transfers:
       form:
         title: "Transférer la propriété"
@@ -153,7 +153,7 @@ fr:
       click_to_copy: "Cliquer pour copier"
       revoke: "Révoquer le jeton"
       confirm: "Êtes vous sûr de vouloir révoquer ce jeton API ?"
-      auth_header: "Authentifiez-vous à l’aide d'un en-tête HTTP"
+      auth_header: "Authentifiez-vous à l'aide d'un en-tête HTTP"
 
   payment_methods:
     new:
@@ -202,13 +202,13 @@ fr:
     privacy:
       title: "Vie privée"
     terms:
-      title: "Conditions d’utilisation"
+      title: "Conditions d'utilisation"
 
   shared:
     footer:
       about: "À propos"
       privacy: "Vie privée"
-      terms: "Conditions d’utilisation"
+      terms: "Conditions d'utilisation"
     account_navbar:
       profile: "Préférences"
       password: "Mot de passe"
@@ -280,18 +280,18 @@ fr:
       subscribe: "S'abonner"
       start_trial: "Débuter l'évaluation"
       processing: "Traitement…"
-      help: "Besoin d’aide ?"
-      contact_html: "N’hésitez pas à %{link}."
+      help: "Besoin d'aide ?"
+      contact_html: "N'hésitez pas à %{link}."
       renews_html: "Renouvellement automatique<br/>après 1 %{interval}"
       contact_support: "contacter le support"
-      contact_subject: "J’ai des questions à propos de %{product}"
+      contact_subject: "J'ai des questions à propos de %{product}"
       testimonial: "Il n'y a rien de plus simple à utiliser que %{product} !"
       subtotal: "Sous-total"
       tax: "Taxes"
       total: "Total à payer aujourd'hui"
 
     edit:
-      trial_ends: "Votre période d’essai se termine dans %{days} jours."
+      trial_ends: "Votre période d'essai se termine dans %{days} jours."
       title: "Changer de forfait"
       description: "Des tarifs simples pour démarrer votre activité en ligne"
       monthly: "Mensuel"
@@ -456,7 +456,7 @@ fr:
         description: "Connecter votre compte sur les réseaux sociaux facilite la connexion."
         remove: "Enlever"
         redirecting: "Redirection…"
-        none: "Vous n’avez pas de compte connecté."
+        none: "Vous n'avez pas de compte connecté."
       connected_account:
         remove: "Supprimer"
     omniauth_callbacks:
@@ -558,7 +558,7 @@ fr:
         domain: "exemple.com"
         subdomain: "exemple"
         name_on_card: "Nom complet"
-        extra_billing_info: "Numéro de TVA, nom d’entreprise, adresse, etc."
+        extra_billing_info: "Numéro de TVA, nom d'entreprise, adresse, etc."
         billing_email: "untel@exemple.com"
       api_token:
         name: "Nom du jeton"
