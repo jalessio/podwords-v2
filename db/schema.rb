@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_28_203429) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_28_203643) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -358,6 +358,22 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_28_203429) do
     t.string "lemon_squeezy_id"
     t.string "fake_processor_id"
     t.string "contact_url"
+  end
+
+  create_table "transcripts", force: :cascade do |t|
+    t.integer "episode_id"
+    t.text "transcript"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "whisper_duration_seconds"
+    t.integer "word_count"
+    t.string "model_size", limit: 50
+    t.string "device", limit: 10
+    t.string "compute_type", limit: 10
+    t.string "language", limit: 2
+    t.integer "cpu_threads"
+    t.integer "beam_size"
+    t.index ["episode_id"], name: "index_transcripts_on_episode_id"
   end
 
   create_table "users", force: :cascade do |t|
