@@ -91,4 +91,4 @@ production:
   password: <%= ENV['POSTGRES_PASSWORD'] %>
   host: <%= ENV.fetch("POSTGRES_HOST") { "db" } %>
   port: <%= ENV.fetch("POSTGRES_PORT") { 5432 } %>
-  database: <%= ENV.fetch("MYSQL_DATABASE") { "jumpstart_production" } %>
+  database: <%= ENV.fetch("POSTGRES_DATABASE") { "jumpstart_production" } %>
