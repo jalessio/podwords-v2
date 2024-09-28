@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_28_202442) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_28_203429) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -133,13 +133,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_28_202442) do
     t.index ["user_id"], name: "index_api_tokens_on_user_id"
   end
 
-  create_table "categories", force: :cascade do |t|
-    t.integer "feed_category_id"
-    t.string "feed_category"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "connected_accounts", force: :cascade do |t|
     t.bigint "owner_id"
     t.string "provider"
@@ -180,13 +173,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_28_202442) do
     t.datetime "updated_at", null: false
     t.index ["feed_id"], name: "index_episodes_on_feed_id"
     t.index ["guid"], name: "index_episodes_on_guid"
-  end
-
-  create_table "feed_categories", force: :cascade do |t|
-    t.integer "feed_id"
-    t.integer "feed_category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "feeds", force: :cascade do |t|
@@ -372,66 +358,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_28_202442) do
     t.string "lemon_squeezy_id"
     t.string "fake_processor_id"
     t.string "contact_url"
-  end
-
-  create_table "transcript_info_options", force: :cascade do |t|
-    t.integer "episode_id"
-    t.bigint "transcription_info_id", null: false
-    t.integer "beam_size", null: false
-    t.integer "best_of", null: false
-    t.float "patience", null: false
-    t.float "length_penalty", null: false
-    t.float "repetition_penalty", null: false
-    t.integer "no_repeat_ngram_size", null: false
-    t.float "log_prob_threshold", null: false
-    t.float "no_speech_threshold", null: false
-    t.float "compression_ratio_threshold", null: false
-    t.boolean "condition_on_previous_text", null: false
-    t.float "prompt_reset_on_temperature", null: false
-    t.json "temperatures"
-    t.text "initial_prompt"
-    t.text "prefix"
-    t.boolean "suppress_blank", null: false
-    t.json "suppress_tokens"
-    t.boolean "without_timestamps", null: false
-    t.float "max_initial_timestamp", null: false
-    t.boolean "word_timestamps", null: false
-    t.string "prepend_punctuations"
-    t.string "append_punctuations"
-    t.integer "max_new_tokens"
-    t.string "clip_timestamps"
-    t.float "hallucination_silence_threshold"
-    t.json "hotwords"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["transcription_info_id"], name: "index_transcript_info_options_on_transcription_info_id"
-  end
-
-  create_table "transcript_infos", force: :cascade do |t|
-    t.integer "episode_id"
-    t.string "language", null: false
-    t.float "language_probability", null: false
-    t.float "duration", null: false
-    t.float "duration_after_vad", null: false
-    t.json "all_language_probs"
-    t.json "vad_options"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "transcripts", force: :cascade do |t|
-    t.integer "episode_id"
-    t.text "transcript"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "whisper_duration_seconds"
-    t.integer "word_count"
-    t.string "model_size", limit: 50
-    t.string "device", limit: 10
-    t.string "compute_type", limit: 10
-    t.string "language", limit: 2
-    t.integer "cpu_threads"
-    t.integer "beam_size"
   end
 
   create_table "users", force: :cascade do |t|

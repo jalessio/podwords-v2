@@ -18,7 +18,7 @@
 #  index_feeds_on_feed_url  (feed_url)
 #
 class Feed < ApplicationRecord
-  # has_many :episodes, dependent: :destroy
+  has_many :episodes, dependent: :destroy
   # has_many :categories, through: :feed_categories
   # has_one :feeds_of_interest
 
