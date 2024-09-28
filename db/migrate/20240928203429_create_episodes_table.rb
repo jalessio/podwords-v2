@@ -1,6 +1,6 @@
 class CreateEpisodesTable < ActiveRecord::Migration[7.2]
   def change
-    create_table "episodes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    create_table "episodes", force: :cascade do |t|
       t.integer "feed_id"
       t.string "title"
       t.string "guid"

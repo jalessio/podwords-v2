@@ -1,6 +1,6 @@
 class CreateFeedsTable < ActiveRecord::Migration[7.2]
   def change
-    create_table "feeds", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    create_table "feeds", force: :cascade do |t|
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
       t.integer "feed_id"

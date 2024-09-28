@@ -1,6 +1,6 @@
 class CreateTranscriptsTable < ActiveRecord::Migration[7.2]
   def change
-    create_table "transcripts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    create_table "transcripts", force: :cascade do |t|
       t.integer "episode_id"
       t.text "transcript"
       t.datetime "created_at", null: false
