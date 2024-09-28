@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_28_203643) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_28_204034) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -187,6 +187,20 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_28_203643) do
     t.index ["feed_title"], name: "index_feeds_on_feed_title"
     t.index ["feed_url"], name: "index_feeds_on_feed_url"
     t.index ["title"], name: "index_feeds_on_title"
+  end
+
+  create_table "feeds_of_interests", force: :cascade do |t|
+    t.bigint "feed_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["feed_id"], name: "index_feeds_of_interests_on_feed_id"
+  end
+
+  create_table "feeds_to_ignores", force: :cascade do |t|
+    t.bigint "feed_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["feed_id"], name: "index_feeds_to_ignores_on_feed_id"
   end
 
   create_table "inbound_webhooks", force: :cascade do |t|
