@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "noku.rails-run-spec-vscode",
+    "Shopify.ruby-lsp",
+    "testdouble.vscode-standard-ruby",
+    "ziyasal.vscode-open-in-github"
+  ]
+}
