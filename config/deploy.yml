@@ -22,10 +22,10 @@ servers:
       - podwords1-hetzner
     proxy:
       app_port: 3000
-      healthcheck:
-        path: /up
-        interval: 2
-        timeout: 2
+      # healthcheck:
+      #   path: /up
+      #   interval: 2
+      #   timeout: 2
     env:
       secret:
         - RAILS_MASTER_KEY
@@ -47,7 +47,7 @@ servers:
 # Set ssl: false if using something like Cloudflare to terminate SSL (but keep host!).
 proxy:
   ssl: false
-  host: podwords.ai
+  # host: podwords.ai
 
 # Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
 # "bin/kamal logs -r job" will tail logs from the first server in the job section.
