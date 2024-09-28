@@ -73,3 +73,5 @@ eval_gemfile "Gemfile.jumpstart"
 # gem "strong_migrations"
 
 gem "standard", "~> 1.40"
+
+gem "meilisearch", "~> 0.28.2"
