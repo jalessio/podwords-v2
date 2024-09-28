@@ -1,0 +1,50 @@
+---
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: destroyed-symlinks
+      - id: detect-private-key
+      - id: end-of-file-fixer
+        exclude: config/credentials.*\.enc$
+      - id: trailing-whitespace
+
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+        args:
+          - "-x"
+        exclude: |
+          (?x)^(
+              bin/.*|
+          )$
+
+  - repo: https://github.com/sirosen/texthooks
+    rev: 0.6.6
+    hooks:
+      - id: alphabetize-codeowners
+      - id: fix-ligatures
+      - id: fix-smartquotes
+      - id: fix-spaces
+
+  - repo: local
+    hooks:
+      - id: standardrb
+        name: Standard Ruby
+        description: Standardize Ruby formatting.
+        entry: pre-commit-hooks/standardrb.sh
+        files: \.(rb|rake)$
+        exclude: |
+          (?x)^(
+            db/schema.rb|
+          )$
+        always_run: false
+        pass_filenames: true
+        language: script
