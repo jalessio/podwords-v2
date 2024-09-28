@@ -92,4 +92,3 @@ export default class extends Controller {
     this.formTarget.appendChild(hiddenInput)
   }
 }
-

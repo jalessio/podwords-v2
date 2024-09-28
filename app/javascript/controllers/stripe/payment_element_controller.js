@@ -76,4 +76,3 @@ export default class extends Controller {
     return document.documentElement.classList.contains("dark") ? "night" : "stripe";
   }
 }
-
