@@ -1,12 +1,12 @@
 ---
 application_name: podwords
 business_name: podwords
-business_address: 
+business_address:
 domain: podwords.ai
 support_email: support@podwords.ai
 default_from_email: podwords.ai <no-reply@podwords.ai>
 background_job_processor: sidekiq
-email_provider: 
+email_provider:
 personal_accounts: true
 apns: false
 fcm: false
