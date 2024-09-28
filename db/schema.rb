@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_24_021434) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_28_202442) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -133,6 +133,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_24_021434) do
     t.index ["user_id"], name: "index_api_tokens_on_user_id"
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.integer "feed_category_id"
+    t.string "feed_category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "connected_accounts", force: :cascade do |t|
     t.bigint "owner_id"
     t.string "provider"
@@ -146,6 +153,54 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_24_021434) do
     t.string "access_token_secret"
     t.string "owner_type"
     t.index ["owner_id", "owner_type"], name: "index_connected_accounts_on_owner_id_and_owner_type"
+  end
+
+  create_table "episodes", force: :cascade do |t|
+    t.integer "feed_id"
+    t.string "title"
+    t.string "guid"
+    t.text "enclosure_url"
+    t.integer "enclosure_length"
+    t.string "enclosure_type"
+    t.text "url"
+    t.string "image_url"
+    t.string "image_link"
+    t.string "image_title"
+    t.text "content"
+    t.text "summary"
+    t.datetime "published_at"
+    t.boolean "itunes_block"
+    t.integer "itunes_duration"
+    t.integer "itunes_episode_id"
+    t.string "itunes_episode_type"
+    t.string "itunes_explicit"
+    t.text "itunes_image"
+    t.string "itunes_title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["feed_id"], name: "index_episodes_on_feed_id"
+    t.index ["guid"], name: "index_episodes_on_guid"
+  end
+
+  create_table "feed_categories", force: :cascade do |t|
+    t.integer "feed_id"
+    t.integer "feed_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "feeds", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "feed_id"
+    t.string "feed_title"
+    t.string "feed_url"
+    t.string "language", limit: 10
+    t.string "title"
+    t.index ["feed_id"], name: "index_feeds_on_feed_id"
+    t.index ["feed_title"], name: "index_feeds_on_feed_title"
+    t.index ["feed_url"], name: "index_feeds_on_feed_url"
+    t.index ["title"], name: "index_feeds_on_title"
   end
 
   create_table "inbound_webhooks", force: :cascade do |t|
@@ -317,6 +372,66 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_24_021434) do
     t.string "lemon_squeezy_id"
     t.string "fake_processor_id"
     t.string "contact_url"
+  end
+
+  create_table "transcript_info_options", force: :cascade do |t|
+    t.integer "episode_id"
+    t.bigint "transcription_info_id", null: false
+    t.integer "beam_size", null: false
+    t.integer "best_of", null: false
+    t.float "patience", null: false
+    t.float "length_penalty", null: false
+    t.float "repetition_penalty", null: false
+    t.integer "no_repeat_ngram_size", null: false
+    t.float "log_prob_threshold", null: false
+    t.float "no_speech_threshold", null: false
+    t.float "compression_ratio_threshold", null: false
+    t.boolean "condition_on_previous_text", null: false
+    t.float "prompt_reset_on_temperature", null: false
+    t.json "temperatures"
+    t.text "initial_prompt"
+    t.text "prefix"
+    t.boolean "suppress_blank", null: false
+    t.json "suppress_tokens"
+    t.boolean "without_timestamps", null: false
+    t.float "max_initial_timestamp", null: false
+    t.boolean "word_timestamps", null: false
+    t.string "prepend_punctuations"
+    t.string "append_punctuations"
+    t.integer "max_new_tokens"
+    t.string "clip_timestamps"
+    t.float "hallucination_silence_threshold"
+    t.json "hotwords"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["transcription_info_id"], name: "index_transcript_info_options_on_transcription_info_id"
+  end
+
+  create_table "transcript_infos", force: :cascade do |t|
+    t.integer "episode_id"
+    t.string "language", null: false
+    t.float "language_probability", null: false
+    t.float "duration", null: false
+    t.float "duration_after_vad", null: false
+    t.json "all_language_probs"
+    t.json "vad_options"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "transcripts", force: :cascade do |t|
+    t.integer "episode_id"
+    t.text "transcript"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "whisper_duration_seconds"
+    t.integer "word_count"
+    t.string "model_size", limit: 50
+    t.string "device", limit: 10
+    t.string "compute_type", limit: 10
+    t.string "language", limit: 2
+    t.integer "cpu_threads"
+    t.integer "beam_size"
   end
 
   create_table "users", force: :cascade do |t|
