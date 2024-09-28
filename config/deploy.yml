@@ -20,6 +20,12 @@ servers:
   web:
     hosts:
       - podwords1-hetzner
+    proxy:
+      app_port: 3000
+      healthcheck:
+        path: /up
+        interval: 2
+        timeout: 2
     env:
       secret:
         - RAILS_MASTER_KEY
