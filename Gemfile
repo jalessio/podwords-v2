@@ -42,6 +42,18 @@ gem "kamal", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.12"
 
+####################################################################################################
+# IMPORTED FROM podwords-v1 REPO
+####################################################################################################
+gem "httparty", "~> 0.22.0"
+gem "streamio-ffmpeg", "~> 3.0"
+gem "feedjira", "~> 3.2"
+gem "aws-sdk-s3", "~> 1.166", require: false
+gem "meilisearch-rails", "~> 0.14.1"
+gem "standard", "~> 1.40"
+gem "aws-sdk-sqs", "~> 1.86"
+####################################################################################################
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"
@@ -71,7 +83,3 @@ eval_gemfile "Gemfile.jumpstart"
 
 # We recommend using strong migrations when your app is in production
 # gem "strong_migrations"
-
-gem "standard", "~> 1.40"
-
-gem "meilisearch", "~> 0.28.2"
