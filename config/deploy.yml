@@ -89,8 +89,8 @@ accessories:
         - MYSQL_ROOT_PASSWORD
     files:
       - docker/mysql/my.cnf:/etc/my.cnf
-    # directories:
-    #   - /mnt/HC_Volume_101272431/data:/var/lib/mysql
+    directories:
+      - /mnt/HC_Volume_101272431/data:/var/lib/mysql
 
   redis:
     host: podwords1-hetzner
