@@ -9,8 +9,9 @@ class EpisodeDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    audio_file_archive_attachment: Field::HasOne,
-    audio_file_archive_blob: Field::HasOne,
+    # See https://discord.com/channels/874684608686477352/1181322818038800435/1181329057007280238
+    # for instructions on how to use ActiveStorage fields
+    audio_file_archive: Field::ActiveStorage,
     content: Field::Text,
     enclosure_length: Field::Number,
     enclosure_type: Field::String,
@@ -31,8 +32,9 @@ class EpisodeDashboard < Administrate::BaseDashboard
     summary: Field::Text,
     title: Field::String,
     transcript: Field::HasOne,
-    transcript_json_archive_attachment: Field::HasOne,
-    transcript_json_archive_blob: Field::HasOne,
+    # See https://discord.com/channels/874684608686477352/1181322818038800435/1181329057007280238
+    # for instructions on how to use ActiveStorage fields
+    transcript_json_archive: Field::ActiveStorage,
     url: Field::Text,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
@@ -45,8 +47,7 @@ class EpisodeDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    audio_file_archive_attachment
-    audio_file_archive_blob
+    audio_file_archive
     content
   ].freeze
 
@@ -54,8 +55,7 @@ class EpisodeDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    audio_file_archive_attachment
-    audio_file_archive_blob
+    audio_file_archive
     content
     enclosure_length
     enclosure_type
@@ -76,8 +76,7 @@ class EpisodeDashboard < Administrate::BaseDashboard
     summary
     title
     transcript
-    transcript_json_archive_attachment
-    transcript_json_archive_blob
+    transcript_json_archive
     url
     created_at
     updated_at
@@ -87,8 +86,7 @@ class EpisodeDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    audio_file_archive_attachment
-    audio_file_archive_blob
+    audio_file_archive
     content
     enclosure_length
     enclosure_type
@@ -109,8 +107,7 @@ class EpisodeDashboard < Administrate::BaseDashboard
     summary
     title
     transcript
-    transcript_json_archive_attachment
-    transcript_json_archive_blob
+    transcript_json_archive
     url
   ].freeze
 
