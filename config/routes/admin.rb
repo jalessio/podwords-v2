@@ -21,5 +21,8 @@ namespace :admin do
     resources :subscriptions
   end
 
+  resources :feeds
+  resources :episodes
+
   root to: "dashboard#show"
 end
