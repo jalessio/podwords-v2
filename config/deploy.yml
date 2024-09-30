@@ -77,8 +77,8 @@ accessories:
         - POSTGRES_PASSWORD
     files:
       - docker/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
-    # volumes:
-    #   - /var/lib/postgresql/data:/var/lib/postgresql/data
+    directories:
+      - /mnt/HC_Volume_101272431/postgres-data:/var/lib/postgresql/data
 
   mysql:
     image: mysql:8.4
