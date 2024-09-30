@@ -43,23 +43,23 @@ servers:
         - POSTGRES_USER
         - POSTGRES_PASSWORD
 
-  # worker:
-  #   hosts:
-  #     - podwords1-hetzner
-  #   cmd: bundle exec sidekiq -q default -q within_1_day
-  #   env:
-  #     secret:
-  #       - RAILS_MASTER_KEY
-  #       - MYSQL_ROOT_PASSWORD
-  #       - MYSQL_HOST
-  #       - MYSQL_DATABASE
-  #       - REDIS_URL
-  #       - MEILISEARCH_HOST
-  #       - MEILISEARCH_API_KEY
-  #       - AWS_REGION
-  #       - AWS_ACCESS_KEY_ID
-  #       - AWS_SECRET_ACCESS_KEY
-  #       - AWS_SQS_TRANSCRIPTS_URL
+  worker:
+    hosts:
+      - podwords1-hetzner
+    cmd: bundle exec sidekiq -q default -q within_1_day
+    env:
+      secret:
+        - RAILS_MASTER_KEY
+        - MYSQL_ROOT_PASSWORD
+        - MYSQL_HOST
+        - MYSQL_DATABASE
+        - REDIS_URL
+        - MEILISEARCH_HOST
+        - MEILISEARCH_API_KEY
+        - AWS_REGION
+        - AWS_ACCESS_KEY_ID
+        - AWS_SECRET_ACCESS_KEY
+        - AWS_SQS_TRANSCRIPTS_URL
 
 # Enable SSL auto certification via Let's Encrypt (and allow for multiple apps on one server).
 # Set ssl: false if using something like Cloudflare to terminate SSL (but keep host!).
