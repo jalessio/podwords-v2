@@ -37,7 +37,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
 
   # Store uploaded files on Cloudflare R2
-  config.active_storage.service = :cloudflare
+  config.active_storage.service = ENV["SECRET_KEY_BASE_DUMMY"].present? ? :local : :cloudflare
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
