@@ -61,7 +61,7 @@ class Episode < ApplicationRecord
     # - Save the audio file to R2
     # - Enqueue a job to transcribe it
     if should_transcribe?
-      Rails.logger.info("FEED_TITLE: #{feed.feed_title}")
+      Rails.logger.info("FEED_TITLE: #{feed.title}")
       Rails.logger.info("FEED_LANGUAGE: #{feed.language}")
       Rails.logger.info("EPISODE_PUBLISHED_AT: #{published_at}")
 

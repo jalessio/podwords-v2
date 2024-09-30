@@ -27,7 +27,7 @@ class Feed < ApplicationRecord
     feed = Feed.find_or_create_by(feed_id: feed_id)
     podcast = PodcastIndexPodcast.find(feed_id)
     feed.feed_url = podcast.url
-    feed.feed_title = podcast.title
+    feed.title = podcast.title
     feed.save!
   end
 
