@@ -11,7 +11,6 @@ class FeedDashboard < Administrate::BaseDashboard
     id: Field::Number,
     episodes: Field::HasMany,
     feed_id: Field::Number,
-    feed_title: Field::String,
     feed_url: Field::String,
     language: Field::String,
     title: Field::String,
@@ -28,7 +27,6 @@ class FeedDashboard < Administrate::BaseDashboard
     id
     episodes
     feed_id
-    feed_title
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -37,7 +35,6 @@ class FeedDashboard < Administrate::BaseDashboard
     id
     episodes
     feed_id
-    feed_title
     feed_url
     language
     title
@@ -51,7 +48,6 @@ class FeedDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = %i[
     episodes
     feed_id
-    feed_title
     feed_url
     language
     title
