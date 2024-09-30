@@ -20,6 +20,7 @@ RUN apt-get update -qq && \
     ffmpeg \
     libjemalloc2 \
     libvips \
+    postgresql-client \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
