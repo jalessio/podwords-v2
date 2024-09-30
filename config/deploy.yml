@@ -76,7 +76,7 @@ accessories:
       secret:
         - POSTGRES_PASSWORD
     files:
-      - docker/postgres/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+      - docker/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
     # volumes:
     #   - /var/lib/postgresql/data:/var/lib/postgresql/data
 
