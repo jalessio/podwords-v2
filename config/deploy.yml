@@ -84,6 +84,7 @@ accessories:
     image: mysql:8.4
     host: podwords1-hetzner
     port: 3306
+    cmd: docker-entrypoint.sh mysqld --default-authentication-plugin=mysql_native_password
     env:
       clear:
         MYSQL_ROOT_HOST: "%"
