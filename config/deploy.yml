@@ -75,6 +75,8 @@ accessories:
     env:
       secret:
         - POSTGRES_PASSWORD
+    files:
+      - docker/postgres/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
     # volumes:
     #   - /var/lib/postgresql/data:/var/lib/postgresql/data
 
