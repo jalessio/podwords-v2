@@ -71,7 +71,6 @@ class Episode < ApplicationRecord
         Rails.logger.info("EPISODE_DURATION: #{duration}")
         if duration <= TRANSCRIPT_DURATION_CUTOFF
           Rails.logger.info("TRANSCRIBING EPISODE: #{id}")
-          TranscribeJob.perform_async(id)
           TranscribeEnqueueJob.perform_async(id) # This uses SQS to enqueue a job for podwords-transcribe app to transcribe
         end
       end
