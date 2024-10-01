@@ -46,10 +46,12 @@ class Episode < ApplicationRecord
   TRANSCRIPT_DURATION_CUTOFF = 8.hours.to_i
 
   def should_transcribe?
-    FeedsOfInterest.where(id: feed_id).exists? \
-      && FeedsToIgnore.where(id: feed_id).none? \
-      && published_at > Time.zone.parse(TRANSCRIPT_DATE_CUTOFF) \
-      && transcript.blank?
+    # TEMP HALT ALL DOWNLOADS TO GET THROUGH SIDEKIQ QUEUE BACKLOG
+    false
+    # FeedsOfInterest.where(id: feed_id).exists? \
+    #   && FeedsToIgnore.where(id: feed_id).none? \
+    #   && published_at > Time.zone.parse(TRANSCRIPT_DATE_CUTOFF) \
+    #   && transcript.blank?
   end
 
   def transcribe
