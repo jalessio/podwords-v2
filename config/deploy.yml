@@ -49,7 +49,7 @@ servers:
     cmd: bundle exec sidekiq -q default -q within_1_day
     env:
       clear:
-        RAILS_MAX_THREADS: 48
+        RAILS_MAX_THREADS: 64
       secret:
         - RAILS_MASTER_KEY
         - REDIS_URL
