@@ -90,6 +90,7 @@ accessories:
     image: postgres:17.0
     host: podwords1-hetzner
     port: 5432
+    cmd: -c config_file=/etc/postgresql/postgresql.conf
     env:
       secret:
         - POSTGRES_PASSWORD
