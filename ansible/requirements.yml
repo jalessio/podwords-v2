@@ -1,0 +1,10 @@
+# install via
+# ansible-galaxy install -r requirements.yml
+# Install a role from the Ansible Galaxy
+
+- name: geerlingguy.docker
+  src: geerlingguy.docker
+
+# https://github.com/jesseduffield/lazydocker
+- name: darkwizard242.lazydocker
+  src: darkwizard242.lazydocker

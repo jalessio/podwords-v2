@@ -1,0 +1,45 @@
+- name: Update and upgrade apt packages
+  apt:
+    update_cache: yes
+    upgrade: dist
+
+- name: Install additional packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - btop
+    - curl
+    - file
+    - mosh
+    - netcat-openbsd
+    - ncdu
+    - tmux
+    - tree
+    - vim
+    - zsh
+
+# Create podwords user
+- name: Add the user podwords
+  ansible.builtin.user:
+    name: podwords
+    state: present
+    shell: /bin/zsh
+
+- name: Add podwords to the sudo group
+  ansible.builtin.user:
+    name: podwords
+    groups: sudo
+    append: yes
+
+- name: Allow podwords to have passwordless sudo
+  ansible.builtin.copy:
+    dest: /etc/sudoers.d/podwords
+    content: "podwords ALL=(ALL) NOPASSWD:ALL\n"
+    mode: "0440"
+
+- name: Add podwords to the docker group
+  ansible.builtin.user:
+    name: podwords
+    groups: docker
+    append: yes

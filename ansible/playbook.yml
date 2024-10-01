@@ -1,0 +1,6 @@
+- hosts: servers
+  become: yes
+  roles:
+    - geerlingguy.docker
+    - darkwizard242.lazydocker
+    - common # This must be after geerlingguy.docker so that the docker group exists
