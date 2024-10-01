@@ -43,11 +43,13 @@ servers:
   worker:
     hosts:
       - podwords1-hetzner
-      - blackbox
+      - podwords2-hetzner
+      - podwords3-hetzner
+      - podwords4-hetzner
     cmd: bundle exec sidekiq -q default -q within_1_day
     env:
       clear:
-        RAILS_MAX_THREADS: 32
+        RAILS_MAX_THREADS: 48
       secret:
         - RAILS_MASTER_KEY
         - REDIS_URL
