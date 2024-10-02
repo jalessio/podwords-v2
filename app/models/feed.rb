@@ -50,6 +50,10 @@ class Feed < ApplicationRecord
   end
 
   def sync_episodes(update_existing_records = false)
+    # We maintain a list of feeds that we don't want to sync in the database.
+    # If the feed is in this list, we skip it.
+    return if feeds_to_ignore.present?
+
     # Update some fields on the Feed that we discover while syncing episodes
     update_attribute(:language, parsed_feed.language) if language.nil?
     update_attribute(:title, parsed_feed.title) if title.nil?
