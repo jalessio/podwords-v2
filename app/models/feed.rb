@@ -19,7 +19,8 @@
 #
 class Feed < ApplicationRecord
   has_many :episodes, dependent: :destroy
-  # has_one :feeds_of_interest
+  has_one :feeds_of_interest
+  has_one :feeds_to_ignore
 
   CRAWLER_USER_AGENT = "podwordsbot/0.0.1 podwords"
 
