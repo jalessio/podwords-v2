@@ -1,4 +1,5 @@
 #!/bin/bash
 
 # Run the Python script using Poetry
-poetry run python hive-watcher.py --notify_podwords --old 1
+# --old is time in hours to go back in history
+poetry run python hive-watcher.py --notify_podwords --old 8
