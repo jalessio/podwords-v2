@@ -19,6 +19,7 @@ namespace :api, defaults: {format: :json} do
       get "should_transcribe", on: :member
       post "transcript", on: :member
     end
+    resources :podping, only: [:create]
   end
 end
 
