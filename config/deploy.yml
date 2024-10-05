@@ -119,9 +119,9 @@ accessories:
     volumes:
       - /var/lib/redis:/data
 
-  # podping:
-  #   host: podwords1-hetzner
-  #   image: ghcr.io/jalessio/podwords:podping-latest
-  #   env:
-  #     secret:
-  #       - PODWORDS_WEB_HOST
+  podping:
+    host: podwords1-hetzner
+    image: ghcr.io/jalessio/podwords:podping-latest
+    env:
+      secret:
+        - PODWORDS_WEB_HOST
