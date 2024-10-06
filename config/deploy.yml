@@ -125,3 +125,4 @@ accessories:
     env:
       secret:
         - PODWORDS_WEB_HOST
+        - PODWORDS_API_KEY

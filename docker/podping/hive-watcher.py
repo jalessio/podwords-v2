@@ -20,7 +20,9 @@ from config import Config
 # This is exposed as an environment variable via Kamal. It is where
 # we want to send POST requests every time a new Feed URL is pinged.
 # It is in the form "http://100.81.33.8"
-PODWORDS_WEB_HOST = os.getenv('PODWORDS_WEB_HOST')
+PODWORDS_WEB_HOST = os.getenv("PODWORDS_WEB_HOST")
+PODWORDS_API_KEY = os.getenv("PODWORDS_API_KEY")
+
 
 class Pings:
     total_pings = 0
@@ -30,17 +32,21 @@ class UnspecifiedHiveException(Exception):
     pass
 
 
-NODES_FOR_HISTORY_GENERATION = frozenset({
-    "https://api.hive.blog",
-    "https://api.openhive.network",
-    "https://hived.emre.sh",
-    "https://hive-api.arcange.eu",
-    "https://rpc.mahdiyari.info",
-})
-NODES_WITHOUT_HISTORY_GENERATION = frozenset({
-    "https://rpc.podping.org",
-    "https://rpc.ecency.com",
-})
+NODES_FOR_HISTORY_GENERATION = frozenset(
+    {
+        "https://api.hive.blog",
+        "https://api.openhive.network",
+        "https://hived.emre.sh",
+        "https://hive-api.arcange.eu",
+        "https://rpc.mahdiyari.info",
+    }
+)
+NODES_WITHOUT_HISTORY_GENERATION = frozenset(
+    {
+        "https://rpc.podping.org",
+        "https://rpc.ecency.com",
+    }
+)
 
 
 def get_client(
@@ -73,7 +79,7 @@ def get_client(
 
 
 def get_allowed_accounts(
-    client: Client = None, account_name: str = "podping", num_retires = 3
+    client: Client = None, account_name: str = "podping", num_retires=3
 ) -> Set[str]:
     """get a list of all accounts allowed to post by acc_name (podping)
     and only react to these accounts"""
@@ -101,7 +107,7 @@ def allowed_op_id(operation_id: str) -> bool:
 def output(post) -> int:
     """Prints out the post and extracts the custom_json"""
 
-    data = json.loads(post["op"][1]['json'])
+    data = json.loads(post["op"][1]["json"])
 
     if Config.json:
         if Config.hive_properties:
@@ -186,8 +192,8 @@ def output(post) -> int:
     # Send notifications to podwords via http. The Rails controller receiving this can
     # handle 'url' as as string or 'urls' as an array of strings.
     if data.get("url") or data.get("urls"):
-      if Config.notify_podwords:
-          output_notify_podwords(data)
+        if Config.notify_podwords:
+            output_notify_podwords(data)
 
     return count
 
@@ -202,18 +208,21 @@ def output_diagnostic(post: dict) -> None:
         )
         logging.info(json.dumps(data, indent=2))
 
+
 def output_notify_podwords(data: dict) -> None:
     """Send HTTP POST to PODWORDS_WEB_HOST to notify the service that a feed has been updated."""
     # data looks like this
     # {"version": "1.1", "medium": "podcast", "reason": "update", "iris": ["https://feeds.buzzsprout.com/2318396.rss"], "timestampNs": 1726328243224235008, "sessionId": 10906660611307979254, "medium_reason": "podcast update", "urls": ["https://feeds.buzzsprout.com/2318396.rss"], "num_urls": 1, "trx_id": "9c619e8107fa013bcdacb1c570d96c6ba287cbeb", "timestamp": "2024-09-14T15:37:33"}
 
-    url = f"{PODWORDS_WEB_HOST}/podping"
-    response = requests.post(url, data=data)
+    url = f"{PODWORDS_WEB_HOST}/api/podwords/podping"
+    headers = {"Authorization": f"Bearer {PODWORDS_API_KEY}"}
+    response = requests.post(url, json=data, headers=headers)
     logging.info(
-      f"NotifyPodwords | {data['urls']} "
-      f"| Response Code | {response.status_code}"
-      f"| Response Text | {response.text}"
+        f"NotifyPodwords | {data['urls']} "
+        f"| Response Code | {response.status_code}"
+        f"| Response Text | {response.text}"
     )
+
 
 def output_status(
     timestamp: str,
@@ -258,7 +267,7 @@ def historical_block_stream_generator(client, start_block, end_block):
                         client.get_ops_in_block(b, batch=True)
             for ops in batch:
                 for post in ops:
-                    if post['op'][0] == 'custom_json':
+                    if post["op"][0] == "custom_json":
                         yield post
             num_in_batch = 0
 
@@ -266,13 +275,17 @@ def historical_block_stream_generator(client, start_block, end_block):
 def listen_for_custom_json_operations(condenser_api_client, start_block):
     current_block = start_block
     if not current_block:
-        current_block = condenser_api_client.get_dynamic_global_properties()["head_block_number"]
+        current_block = condenser_api_client.get_dynamic_global_properties()[
+            "head_block_number"
+        ]
     block_client = get_client(connect_timeout=3, read_timeout=3, api_type="block_api")
     while True:
         start_time = timer()
         while True:
             try:
-                head_block = condenser_api_client.get_dynamic_global_properties()["head_block_number"]
+                head_block = condenser_api_client.get_dynamic_global_properties()[
+                    "head_block_number"
+                ]
                 break
             except (KeyError, RPCNodeException):
                 pass
@@ -284,23 +297,29 @@ def listen_for_custom_json_operations(condenser_api_client, start_block):
                 except RPCNodeException:
                     pass
             try:
-                for op in [(trx_id, op) for trx_id, transaction in enumerate(block['block']['transactions']) for op in transaction['operations']]:
-                    if op[1]['type'] == 'custom_json_operation':
+                for op in [
+                    (trx_id, op)
+                    for trx_id, transaction in enumerate(block["block"]["transactions"])
+                    for op in transaction["operations"]
+                ]:
+                    if op[1]["type"] == "custom_json_operation":
                         yield {
                             "block": current_block,
-                            "timestamp": block['block']['timestamp'],
-                            "trx_id": block['block']['transaction_ids'][op[0]],
+                            "timestamp": block["block"]["timestamp"],
+                            "trx_id": block["block"]["transaction_ids"][op[0]],
                             "op": [
-                                'custom_json',
-                                op[1]['value'],
-                            ]
+                                "custom_json",
+                                op[1]["value"],
+                            ],
                         }
             except KeyError:
                 logging.warning(f"Block {current_block} is invalid")
             current_block += 1
             while True:
                 try:
-                    head_block = condenser_api_client.get_dynamic_global_properties()["head_block_number"]
+                    head_block = condenser_api_client.get_dynamic_global_properties()[
+                        "head_block_number"
+                    ]
                     break
                 except (KeyError, RPCNodeException):
                     pass
@@ -308,7 +327,6 @@ def listen_for_custom_json_operations(condenser_api_client, start_block):
         sleep_time = 3 - (end_time - start_time)
         if sleep_time > 0 and (head_block - current_block) <= 0:
             time.sleep(sleep_time)
-
 
 
 def scan_chain(client: Client, history: bool, start_block=None):
@@ -323,8 +341,8 @@ def scan_chain(client: Client, history: bool, start_block=None):
     scan_start_time = pendulum.now()
     report_timedelta = pendulum.duration(minutes=Config.report_minutes)
 
-    #allowed_accounts = get_allowed_accounts(client)
-    #allowed_accounts_start_time = pendulum.now()
+    # allowed_accounts = get_allowed_accounts(client)
+    # allowed_accounts_start_time = pendulum.now()
 
     count_posts = 0
     pings = 0
@@ -338,8 +356,8 @@ def scan_chain(client: Client, history: bool, start_block=None):
 
     else:
         report_period_start_time = pendulum.now()
-        #event_listener = EventListener(client, "head", start_block=start_block)
-        #stream = event_listener.on("custom_json")
+        # event_listener = EventListener(client, "head", start_block=start_block)
+        # stream = event_listener.on("custom_json")
         stream = listen_for_custom_json_operations(client, start_block)
         if Config.reports:
             logging.info(f"Watching live from block_num: {start_block}")
@@ -365,7 +383,7 @@ def scan_chain(client: Client, history: bool, start_block=None):
                     pings = 0
 
             if allowed_op_id(post["op"][1]["id"]):
-                #if set(post["op"][1]["required_posting_auths"]) & allowed_accounts:
+                # if set(post["op"][1]["required_posting_auths"]) & allowed_accounts:
                 count = output(post)
                 pings += count
                 Pings.total_pings += count
@@ -375,7 +393,10 @@ def scan_chain(client: Client, history: bool, start_block=None):
                     output_diagnostic(post)
 
             if history:
-                if time_to_now < pendulum.duration(seconds=2) or post_time > Config.stop_at:
+                if (
+                    time_to_now < pendulum.duration(seconds=2)
+                    or post_time > Config.stop_at
+                ):
                     timestamp = post["timestamp"]
                     current_block_num = post["block"]
                     if Config.show_reports and not Config.urls_only:
@@ -391,13 +412,12 @@ def scan_chain(client: Client, history: bool, start_block=None):
                         logging.info(f"block_num: {post['block']}")
                     # Break out of the for loop we've caught up.
                     break
-            #else:
+            # else:
             #    allowed_accounts_time_diff = pendulum.now() - allowed_accounts_start_time
             #    if allowed_accounts_time_diff > pendulum.duration(hours=1):
             #        # Re-fetch the allowed_accounts every hour in case we add one.
             #        allowed_accounts = get_allowed_accounts()
             #        allowed_accounts_start_time = pendulum.now()
-
 
     except Exception as ex:
         logging.exception(ex)
@@ -413,7 +433,7 @@ def scan_chain(client: Client, history: bool, start_block=None):
         )
 
     if post:
-        return post['block']
+        return post["block"]
 
 
 def main() -> None:
@@ -424,7 +444,9 @@ def main() -> None:
         datefmt="%Y-%m-%dT%H:%M:%S%z",
     )
 
-    client = get_client(connect_timeout=3, read_timeout=3, automatic_node_selection=False)
+    client = get_client(
+        connect_timeout=3, read_timeout=3, automatic_node_selection=False
+    )
     Config.setup(client)
 
     """ do we want periodic reports? """
@@ -443,7 +465,9 @@ def main() -> None:
     if start_block is None:
         while True:
             try:
-                start_block = client.get_dynamic_global_properties()["head_block_number"]
+                start_block = client.get_dynamic_global_properties()[
+                    "head_block_number"
+                ]
                 break
             except RPCNodeException:
                 pass
