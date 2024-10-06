@@ -218,7 +218,8 @@ def output_notify_podwords(data: dict) -> None:
     headers = {"Authorization": f"Bearer {PODWORDS_API_KEY}"}
     response = requests.post(url, json=data, headers=headers)
     logging.info(
-        f"NotifyPodwords | {data['urls']} "
+        f"NotifyPodwords | url: {url} "
+        " | Data URLs{data['urls']} "
         f"| Response Code | {response.status_code}"
         f"| Response Text | {response.text}"
     )
