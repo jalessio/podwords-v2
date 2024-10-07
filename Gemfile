@@ -48,7 +48,7 @@ gem "image_processing", "~> 1.12"
 gem "httparty", "~> 0.22.0"
 gem "streamio-ffmpeg", "~> 3.0"
 gem "feedjira", "~> 3.2"
-gem "aws-sdk-s3", "~> 1.166", require: false
+gem "aws-sdk-s3", "~> 1.167", require: false
 gem "meilisearch-rails", "~> 0.14.1"
 gem "standard", "~> 1.40"
 gem "aws-sdk-sqs", "~> 1.86"
