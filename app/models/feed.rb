@@ -49,14 +49,35 @@ class Feed < ApplicationRecord
     @parsed_feed ||= Feedjira.parse(get_feed)
   end
 
+  def update_feed
+    update(
+      language: parsed_feed.language,
+      title: parsed_feed.title,
+      description: parsed_feed.description,
+      link: parsed_feed.url,
+      copyright: parsed_feed.copyright,
+      image_url: parsed_feed.image_url,
+      image_title: parsed_feed.image_title,
+      image_link: parsed_feed.image_link,
+      itunes_explicit: parsed_feed.itunes_explicit,
+      itunes_type: parsed_feed.itunes_type,
+      itunes_subtitle: parsed_feed.itunes_subtitle,
+      itunes_author: parsed_feed.itunes_author,
+      itunes_summary: parsed_feed.itunes_summary,
+      itunes_owner_name: parsed_feed.itunes_owner_name,
+      itunes_owner_email: parsed_feed.itunes_owner_email,
+      itunes_image: parsed_feed.itunes_image
+    )
+  end
+
   def sync_episodes(update_existing_records = false)
     # We maintain a list of feeds that we don't want to sync in the database.
     # If the feed is in this list, we skip it.
     return if feeds_to_ignore.present?
 
-    # Update some fields on the Feed that we discover while syncing episodes
-    update_attribute(:language, parsed_feed.language) if language.nil?
-    update_attribute(:title, parsed_feed.title) if title.nil?
+    # Update the feed with the parsed feed info, which allows us to builds up
+    # a more complete model of the feed as we add more fields to the Feed model.
+    update_feed
 
     # Loop through every episode in the feed
     parsed_feed.entries.each do |entry|
