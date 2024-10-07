@@ -4,18 +4,33 @@
 #
 # Table name: feeds
 #
-#  id         :integer          not null, primary key
-#  feed_title :string
-#  feed_url   :string
-#  language   :string(10)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  feed_id    :integer
+#  id                 :bigint           not null, primary key
+#  copyright          :string
+#  description        :text
+#  feed_url           :string
+#  image_link         :string
+#  image_title        :string
+#  image_url          :string
+#  itunes_author      :string
+#  itunes_explicit    :boolean
+#  itunes_image       :string
+#  itunes_owner_email :string
+#  itunes_owner_name  :string
+#  itunes_subtitle    :string
+#  itunes_summary     :text
+#  itunes_type        :string
+#  language           :string(10)
+#  link               :string
+#  title              :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  feed_id            :integer
 #
 # Indexes
 #
 #  index_feeds_on_feed_id   (feed_id)
 #  index_feeds_on_feed_url  (feed_url)
+#  index_feeds_on_title     (title)
 #
 class Feed < ApplicationRecord
   has_many :episodes, dependent: :destroy

@@ -2,7 +2,7 @@
 #
 # Table name: transcripts
 #
-#  id                       :integer          not null, primary key
+#  id                       :bigint           not null, primary key
 #  beam_size                :integer
 #  compute_type             :string(10)
 #  cpu_threads              :integer
@@ -15,6 +15,10 @@
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  episode_id               :integer
+#
+# Indexes
+#
+#  index_transcripts_on_episode_id  (episode_id)
 #
 class Transcript < ApplicationRecord
   # include MeiliSearch::Rails

@@ -2,7 +2,7 @@
 #
 # Table name: episodes
 #
-#  id                  :integer          not null, primary key
+#  id                  :bigint           not null, primary key
 #  content             :text
 #  enclosure_length    :integer
 #  enclosure_type      :string

@@ -2,10 +2,10 @@
 #
 # Table name: feeds_of_interests
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  feed_id    :integer          not null
+#  feed_id    :bigint           not null
 #
 # Indexes
 #
