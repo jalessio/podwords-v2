@@ -66,22 +66,22 @@ class Feed < ApplicationRecord
 
   def update_feed
     update(
-      language: parsed_feed.language,
-      title: parsed_feed.title,
-      description: parsed_feed.description,
-      link: parsed_feed.url,
-      copyright: parsed_feed.copyright,
-      image_url: parsed_feed.image_url,
-      image_title: parsed_feed.image_title,
-      image_link: parsed_feed.image_link,
-      itunes_explicit: parsed_feed.itunes_explicit,
-      itunes_type: parsed_feed.itunes_type,
-      itunes_subtitle: parsed_feed.itunes_subtitle,
-      itunes_author: parsed_feed.itunes_author,
-      itunes_summary: parsed_feed.itunes_summary,
-      itunes_owner_name: parsed_feed.itunes_owner_name,
-      itunes_owner_email: parsed_feed.itunes_owner_email,
-      itunes_image: parsed_feed.itunes_image
+      language: parsed_feed.try(:language) || nil,
+      title: parsed_feed.try(:title) || nil,
+      description: parsed_feed.try(:description) || nil,
+      link: parsed_feed.try(:url) || nil,
+      copyright: parsed_feed.try(:copyright) || nil,
+      image_url: parsed_feed.try(:image_url) || nil,
+      image_title: parsed_feed.try(:image_title) || nil,
+      image_link: parsed_feed.try(:image_link) || nil,
+      itunes_explicit: parsed_feed.try(:itunes_explicit) || nil,
+      itunes_type: parsed_feed.try(:itunes_type) || nil,
+      itunes_subtitle: parsed_feed.try(:itunes_subtitle) || nil,
+      itunes_author: parsed_feed.try(:itunes_author) || nil,
+      itunes_summary: parsed_feed.try(:itunes_summary) || nil,
+      itunes_owner_name: parsed_feed.try(:itunes_owner_name) || nil,
+      itunes_owner_email: parsed_feed.try(:itunes_owner_email) || nil,
+      itunes_image: parsed_feed.try(:itunes_image) || nil
     )
   end
 
