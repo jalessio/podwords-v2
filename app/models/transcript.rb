@@ -6,9 +6,11 @@
 #  transcript :jsonb            not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  episode_id :integer
 #
 # Indexes
 #
+#  index_transcripts_on_episode_id  (episode_id)
 #  index_transcripts_on_transcript  (transcript) USING gin
 #
 class Transcript < ApplicationRecord
