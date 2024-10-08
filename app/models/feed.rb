@@ -40,14 +40,6 @@ class Feed < ApplicationRecord
 
   CRAWLER_USER_AGENT = "podwordsbot/0.0.1 podwords"
 
-  def self.initialize_from_podcasts_table(feed_id)
-    feed = Feed.find_or_create_by(feed_id: feed_id)
-    podcast = PodcastIndexPodcast.find(feed_id)
-    feed.feed_url = podcast.url
-    feed.title = podcast.title
-    feed.save!
-  end
-
   def get_feed
     Rails.logger.info("Fetching feed: #{feed_url}")
     options = {
