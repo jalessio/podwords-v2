@@ -20,6 +20,8 @@ class Api::Podwords::EpisodesController < Api::Podwords::BaseController
   private
 
   def transcript_params
-    params.require(:transcript).permit(:transcript, :episode_id)
+    permitted = params.require(:transcript).permit(:transcript, :episode_id)
+    Rails.logger.info "Permitted params: #{permitted.inspect}"
+    permitted
   end
 end
