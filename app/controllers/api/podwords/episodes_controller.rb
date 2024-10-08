@@ -1,6 +1,7 @@
 class Api::Podwords::EpisodesController < Api::Podwords::BaseController
   def transcript
-    @transcript = Transcript.new(transcript_params)
+    # @transcript = Transcript.new(transcript_params)
+    @transcript = Transcript.new(params)
 
     if @transcript.save
       render json: @transcript, status: :created
@@ -19,7 +20,7 @@ class Api::Podwords::EpisodesController < Api::Podwords::BaseController
 
   private
 
-  def transcript_params
-    params.require(:transcript).permit(:episode_id, :transcript)
-  end
+  # def transcript_params
+  #   params.require(:transcript).permit(:episode_id, :transcript)
+  # end
 end
