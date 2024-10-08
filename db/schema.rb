@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_06_004422) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_08_034202) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -196,6 +196,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_06_004422) do
     t.string "itunes_owner_name"
     t.string "itunes_owner_email"
     t.string "itunes_image"
+    t.string "version"
     t.index ["feed_id"], name: "index_feeds_on_feed_id"
     t.index ["feed_url"], name: "index_feeds_on_feed_url"
     t.index ["title"], name: "index_feeds_on_title"
