@@ -20,6 +20,6 @@ class Api::Podwords::EpisodesController < Api::Podwords::BaseController
   private
 
   def transcript_params
-    params.require(:transcript).permit(:episode_id, :transcript, :whisper_duration_seconds)
+    params.require(:transcript).permit(:episode_id, :transcript)
   end
 end

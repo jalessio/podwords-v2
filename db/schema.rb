@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_08_034202) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_08_052837) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -388,6 +388,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_034202) do
   end
 
   create_table "transcripts", force: :cascade do |t|
+    t.jsonb "transcript", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["transcript"], name: "index_transcripts_on_transcript", using: :gin
+  end
+
+  create_table "transcripts_simple", force: :cascade do |t|
     t.integer "episode_id"
     t.text "transcript"
     t.datetime "created_at", null: false
@@ -400,7 +407,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_034202) do
     t.string "language", limit: 2
     t.integer "cpu_threads"
     t.integer "beam_size"
-    t.index ["episode_id"], name: "index_transcripts_on_episode_id"
+    t.index ["episode_id"], name: "index_transcripts_simple_on_episode_id"
   end
 
   create_table "users", force: :cascade do |t|
