@@ -1,6 +1,6 @@
 class Api::Podwords::EpisodesController < Api::Podwords::BaseController
   def transcript
-    @transcript = Transcript.new(params[:transcript])
+    @transcript = Transcript.new(params["transcript"])
 
     if @transcript.save
       render json: @transcript, status: :created
