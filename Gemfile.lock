@@ -573,7 +573,7 @@ DEPENDENCIES
   name_of_person (~> 1.0)
   nokogiri (>= 1.12.5)
   noticed (~> 2.2)
-  oj (~> 3.8)
+  oj (~> 3.16)
   overcommit
   pagy (~> 9.0)
   pay (~> 7.1)
