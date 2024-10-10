@@ -34,9 +34,18 @@
 #  index_feeds_on_title     (title)
 #
 class Feed < ApplicationRecord
+  include MeiliSearch::Rails
+
   has_many :episodes, dependent: :destroy
   has_one :feeds_of_interest
   has_one :feeds_to_ignore
+
+  # While on the hosted Meilisearch instance, we will limit indexing
+  # only to feeds_of_interest since we have 4M+ records to index otherwise.
+  meilisearch if: :is_of_interest?, sanitize: true do
+    attribute :title
+    attribute :description
+  end
 
   CRAWLER_USER_AGENT = "podwordsbot/0.0.1 podwords"
 
