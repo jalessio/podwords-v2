@@ -1,4 +1,5 @@
 devise_for :users,
+  skip: [:registrations], # 2024-10-10 Disable user registration until we are ready to launch. This allows me to turn of IP restrictions on podwords.ai and launch a public-facing site.
   controllers: {
     omniauth_callbacks: ("users/omniauth_callbacks" if defined? OmniAuth),
     registrations: "users/registrations",
