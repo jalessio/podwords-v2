@@ -14,14 +14,18 @@
 #  index_transcripts_on_payload     (payload) USING gin
 #
 class Transcript < ApplicationRecord
-  # include MeiliSearch::Rails
+  include MeiliSearch::Rails
 
   belongs_to :episode
   # before_save :word_count
 
-  # meilisearch do
-  #   attribute :transcript
-  # end
+  meilisearch do
+    attribute :full_text
+  end
+
+  def full_text
+    payload["text"]
+  end
 
   # def word_count
   #   self.word_count = transcript.split(" ").count
