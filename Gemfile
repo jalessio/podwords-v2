@@ -42,6 +42,9 @@ gem "kamal", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.12"
 
+# Use OJ for faster JSON processing [https://rubygems.org/gems/oj]
+gem "oj", "~> 3.16"
+
 ####################################################################################################
 # IMPORTED FROM podwords-v1 REPO
 ####################################################################################################
@@ -84,5 +87,3 @@ eval_gemfile "Gemfile.jumpstart"
 
 # We recommend using strong migrations when your app is in production
 # gem "strong_migrations"
-
-gem "oj", "~> 3.16"
