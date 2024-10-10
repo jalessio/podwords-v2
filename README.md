@@ -4,11 +4,19 @@ Welcome! To get started, clone the repository and push it to a new repository.
 
 ## Podwords Runbook
 
-# Queue up 30 days of jobs spaced out by 1 hour
+### Queue up 30 days of jobs spaced out by 1 hour
 
 ```
 (1..30 * 24).each do |i|
   FeedFetcherFeedsOfInterestJob.perform_in(i.hours)
+end
+```
+
+### Queue up 30 days of jobs spaced out by 12 hours
+
+```
+(1..30 * 2).each do |i|
+  EpisodeSyncAllJob.perform_in(i * 12.hours)
 end
 ```
 
