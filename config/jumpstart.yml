@@ -1,6 +1,6 @@
 ---
-application_name: podwords
-business_name: podwords
+application_name: podwords.ai
+business_name: podwords.ai
 business_address:
 domain: podwords.ai
 support_email: support@podwords.ai
@@ -15,4 +15,4 @@ omniauth_providers:
 payment_processors:
 multitenancy:
 gems:
-- oj
+  - oj
