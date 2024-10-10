@@ -32,10 +32,19 @@
 #  index_episodes_on_guid     (guid)
 #
 class Episode < ApplicationRecord
+  include MeiliSearch::Rails
+
   belongs_to :feed
   has_one :transcript, dependent: :destroy
   has_one_attached :audio_file_archive
   has_one_attached :transcript_json_archive
+
+  # While on the hosted Meilisearch instance, we will limit indexing
+  # only to feeds_of_interest since we have 4M+ records to index otherwise.
+  meilisearch if: :is_of_interest?, sanitize: true do
+    attribute :title
+    attribute :summary
+  end
 
   # TODO:
   # -
@@ -142,5 +151,9 @@ class Episode < ApplicationRecord
     else
       format("%d minutes, %02d seconds", minutes, remaining_seconds)
     end
+  end
+
+  def is_of_interest?
+    feed.is_of_interest?
   end
 end
