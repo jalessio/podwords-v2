@@ -15,19 +15,26 @@
 #
 class Transcript < ApplicationRecord
   include MeiliSearch::Rails
-
+  extend Pagy::Meilisearch
   belongs_to :episode
-  # before_save :word_count
+  after_save :trigger_search
 
-  meilisearch do
-    attribute :full_text
+  meilisearch enqueue: :trigger_sidekiq_index_job do
+    attribute :full_text, :episode_id
+    add_attribute :feed_id do
+      episode.feed_id
+    end
+    displayed_attributes [:full_text]
   end
 
   def full_text
     payload["text"]
   end
 
-  # def word_count
-  #   self.word_count = transcript.split(" ").count
-  # end
+  def trigger_search
+  end
+
+  def self.trigger_sidekiq_index_job(record, remove)
+    TranscriptIndexJob.perform_async(record.id, remove)
+  end
 end

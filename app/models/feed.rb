@@ -35,6 +35,7 @@
 #
 class Feed < ApplicationRecord
   include MeiliSearch::Rails
+  extend Pagy::Meilisearch
 
   has_many :episodes, dependent: :destroy
   has_one :feeds_of_interest
@@ -42,9 +43,9 @@ class Feed < ApplicationRecord
 
   # While on the hosted Meilisearch instance, we will limit indexing
   # only to feeds_of_interest since we have 4M+ records to index otherwise.
-  meilisearch if: :is_of_interest?, sanitize: true do
-    attribute :title
-    attribute :description
+  meilisearch if: :is_of_interest?, enqueue: :trigger_sidekiq_index_job, sanitize: true do
+    attribute :title, :description, :itunes_summary, :language
+    displayed_attributes [:title, :description]
   end
 
   CRAWLER_USER_AGENT = "podwordsbot/0.0.1 podwords"
@@ -145,5 +146,9 @@ class Feed < ApplicationRecord
 
   def is_of_interest?
     feeds_of_interest.present?
+  end
+
+  def self.trigger_sidekiq_index_job(record, remove)
+    FeedIndexJob.perform_async(record.id, remove)
   end
 end

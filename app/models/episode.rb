@@ -33,6 +33,7 @@
 #
 class Episode < ApplicationRecord
   include MeiliSearch::Rails
+  extend Pagy::Meilisearch
 
   belongs_to :feed
   has_one :transcript, dependent: :destroy
@@ -41,15 +42,13 @@ class Episode < ApplicationRecord
 
   # While on the hosted Meilisearch instance, we will limit indexing
   # only to feeds_of_interest since we have 4M+ records to index otherwise.
-  meilisearch if: :is_of_interest?, sanitize: true do
-    attribute :title
-    attribute :summary
+  meilisearch if: :is_of_interest?, enqueue: :trigger_sidekiq_index_job, sanitize: true do
+    attribute :title, :summary, :feed_id
+    displayed_attributes [:title, :summary]
+    # searchable_attributes [:title, :summary, :feed_id]
+    # sortable_attributes [:title, :summary, :feed_id]
   end
 
-  # TODO:
-  # -
-  # NOTES:
-  # - episode count 2024-09-11 117,226,161
   MAX_EPISODES = 1000
   TRANSCRIPT_DATE_CUTOFF = "2016-01-01"
   TRANSCRIPT_DURATION_CUTOFF = 8.hours.to_i
@@ -155,5 +154,9 @@ class Episode < ApplicationRecord
 
   def is_of_interest?
     feed.is_of_interest?
+  end
+
+  def self.trigger_sidekiq_index_job(record, remove)
+    EpisodeIndexJob.perform_async(record.id, remove)
   end
 end
