@@ -1,7 +1,8 @@
 MeiliSearch::Rails.configuration = {
-  meilisearch_url: ENV.fetch("MEILISEARCH_HOST", "http://localhost:7700"),
-  meilisearch_api_key: ENV.fetch("MEILISEARCH_API_KEY", ""),
+  meilisearch_url: Rails.configuration.x.meilisearch.url,
+  meilisearch_api_key: Rails.configuration.x.meilisearch.api_key,
   timeout: 5,
   max_retries: 3,
-  pagination_backend: :pagy
+  pagination_backend: :pagy,
+  per_environment: true
 }

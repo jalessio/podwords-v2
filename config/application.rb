@@ -5,7 +5,6 @@ require "rails/all"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-
 module JumpstartApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -56,5 +55,12 @@ module JumpstartApp
 
     # Support older SHA1 digests for ActiveRecord::Encryption
     config.active_record.encryption.support_sha1_for_non_deterministic_encryption = true
+    #####################################################################################################
+    # Podwords Custom Config
+    #####################################################################################################
+    # https://cloud.meilisearch.com/teams/13044/projects/11386/settings
+    config.x.meilisearch.url = "https://edge.meilisearch.com"
+    config.x.meilisearch.api_key = Rails.application.credentials.dig(:meilisearch, :api_key)
+    #####################################################################################################
   end
 end
