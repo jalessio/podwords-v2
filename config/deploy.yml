@@ -26,8 +26,6 @@ servers:
       secret:
         - RAILS_MASTER_KEY
         - REDIS_URL
-        - MEILISEARCH_HOST
-        - MEILISEARCH_API_KEY
         - AWS_REGION
         - AWS_ACCESS_KEY_ID
         - AWS_SECRET_ACCESS_KEY
@@ -47,8 +45,6 @@ servers:
       secret:
         - RAILS_MASTER_KEY
         - REDIS_URL
-        - MEILISEARCH_HOST
-        - MEILISEARCH_API_KEY
         - AWS_REGION
         - AWS_ACCESS_KEY_ID
         - AWS_SECRET_ACCESS_KEY
