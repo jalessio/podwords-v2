@@ -139,7 +139,11 @@ class Feed < ApplicationRecord
   end
 
   def is_english?
-    language.downcase == "en" || language.downcase == "en-us"
+    if language.present?
+      language.downcase == "en" || language.downcase == "en-us"
+    else
+      true
+    end
   end
 
   def is_of_interest?
