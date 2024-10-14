@@ -73,7 +73,7 @@ class Episode < ApplicationRecord
       Rails.logger.info("FEED_LANGUAGE: #{feed.language}")
       Rails.logger.info("EPISODE_PUBLISHED_AT: #{published_at}")
 
-      if !transcript_json_archive.attached?
+      if transcript.blank?
         attach_audio_file if !audio_file_archive.attached?
         audio_file_archive.analyze if !audio_file_archive.analyzed?
         Rails.logger.info("EPISODE_DURATION: #{duration}")
