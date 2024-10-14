@@ -75,7 +75,14 @@ class Episode < ApplicationRecord
 
       if transcript.blank?
         attach_audio_file if !audio_file_archive.attached?
-        audio_file_archive.analyze if !audio_file_archive.analyzed?
+        begin
+          audio_file_archive.analyze if !audio_file_archive.analyzed?
+        rescue ActiveStorage::FileNotFoundError
+          Rails.logger.info("FILE NOT FOUND ON R2: #{audio_file_archive.url}")
+          audio_file_archive.purge
+          attach_audio_file
+        end
+
         Rails.logger.info("EPISODE_DURATION: #{duration}")
         if duration <= TRANSCRIPT_DURATION_CUTOFF
           Rails.logger.info("TRANSCRIBING EPISODE: #{id}")
@@ -127,6 +134,7 @@ class Episode < ApplicationRecord
       Rails.logger.info("File downloaded and saved to #{audio_file_name}")
     else
       Rails.logger.info("Failed to download file. HTTP Status Code: #{response.code}")
+      raise "Failed to download #{enclosure_url}"
     end
   end
 
